@@ -16,7 +16,7 @@ pub fn part_one() -> String {
             continue;
         }
 
-        if !l.chars().collect::<Vec<char>>().windows(2).any(|pair| pair[0] == pair[1]) {
+        if !l.as_bytes().windows(2).any(|pair| pair[0] == pair[1]) {
             continue;
         }
 
@@ -31,13 +31,13 @@ pub fn part_two() -> String {
 
     let mut count = 0;
     for l in lines {
-        let chars = l.chars().collect::<Vec<char>>();
+        let char_bytes = l.as_bytes();
 
-        if !chars.windows(3).any(|pair| pair[0] == pair[2]) {
+        if !char_bytes.windows(3).any(|pair| pair[0] == pair[2]) {
             continue;
         }
 
-        if !chars.windows(2).enumerate().any(|(i, pair)| l.rfind(&pair.iter().collect::<String>()).map(|j| j > i + 1).unwrap_or(false)) {
+        if !char_bytes.windows(2).enumerate().any(|(i, pair)| l.rfind(str::from_utf8(pair).unwrap()).map(|j| j > i + 1).unwrap_or(false)) {
             continue;
         }
 
