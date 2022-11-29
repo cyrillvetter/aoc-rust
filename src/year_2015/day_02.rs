@@ -19,7 +19,7 @@ pub fn part_two() -> String {
         .map(|p| p.split('x').map(|s| s.parse().unwrap()).collect::<Vec<i32>>())
         .map(|mut s| {
             s.sort();
-            (2 * s[0] + 2 * s[1]) + (s[0] * s[1] * s[2])
+            2 * s[0] + 2 * s[1] + s[0] * s[1] * s[2]
         })
         .sum::<i32>()
         .to_string()
