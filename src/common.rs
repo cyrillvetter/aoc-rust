@@ -20,7 +20,7 @@ pub fn solve_parts(day: u8, func_one: impl FnOnce() -> String, func_two: impl Fn
 fn solve(func: impl FnOnce() -> String) {
     let now = Instant::now();
     let result = func();
-    let elapsed_ms = now.elapsed().as_millis();
+    let elapsed_ms = (now.elapsed().as_micros() as f64) / 1_000.0;
 
     println!("Part 1: {} ({}ms)", result, elapsed_ms);
 }

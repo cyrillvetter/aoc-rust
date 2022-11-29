@@ -5,6 +5,7 @@ fn main() {
     year_2015::solve_day(2);
     year_2015::solve_day(3);
     year_2015::solve_day(4);
+    year_2015::solve_day(5);
 }
 
 mod common;

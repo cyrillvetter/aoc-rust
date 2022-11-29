@@ -25,12 +25,12 @@ fn compute_hash(input: &str, zero_count: usize) -> u32 {
         let hash = md5::compute(input.to_owned() + &i.to_string());
         let hash_parts = hash.0;
 
-        if is_even {
-            if hash_parts[..half_len] == compare_vec {
-                return i;
-            }
-        } else {
-            if hash_parts[..half_len] == compare_vec && hash_parts[half_len] < 16 {
+        if hash_parts[..half_len] == compare_vec {
+            if !is_even {
+                if hash_parts[half_len] < 16 {
+                    return i;
+                }
+            } else {
                 return i;
             }
         }

@@ -6,6 +6,7 @@ pub fn solve_day(day: u8) {
         2 => solve_parts(day, day_02::part_one, day_02::part_two),
         3 => solve_parts(day, day_03::part_one, day_03::part_two),
         4 => solve_parts(day, day_04::part_one, day_04::part_two),
+        5 => solve_parts(day, day_05::part_one, day_05::part_two),
         _ => return,
     };
 }
@@ -14,3 +15,4 @@ mod day_01;
 mod day_02;
 mod day_03;
 mod day_04;
+mod day_05;
