@@ -3,12 +3,14 @@ use md5;
 pub fn part_one() -> String {
     let input = "bgvyzdsv";
     let zero_count = 5;
+
     compute_hash(input, zero_count).to_string()
 }
 
 pub fn part_two() -> String {
     let input = "bgvyzdsv";
     let zero_count = 6;
+
     compute_hash(input, zero_count).to_string()
 }
 
