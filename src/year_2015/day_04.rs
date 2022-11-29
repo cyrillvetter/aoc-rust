@@ -15,9 +15,9 @@ pub fn part_two() -> String {
 }
 
 fn compute_hash(input: &str, zero_count: usize) -> u32 {
-    let mid = zero_count / 2;
+    let half_len = zero_count / 2;
     let is_even = zero_count % 2 == 0;
-    let compare_vec = vec![0; mid];
+    let compare_vec = vec![0; half_len];
 
     let mut i = 0;
 
@@ -26,11 +26,11 @@ fn compute_hash(input: &str, zero_count: usize) -> u32 {
         let hash_parts = hash.0;
 
         if is_even {
-            if hash_parts[..mid] == compare_vec {
+            if hash_parts[..half_len] == compare_vec {
                 return i;
             }
         } else {
-            if hash_parts[..mid] == compare_vec && hash_parts[mid] < 16 {
+            if hash_parts[..half_len] == compare_vec && hash_parts[half_len] < 16 {
                 return i;
             }
         }

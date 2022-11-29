@@ -4,13 +4,23 @@ pub fn part_one() -> String {
     read_lines(2015, 2)
         .iter()
         .map(|p| p.split('x').map(|s| s.parse().unwrap()).collect::<Vec<i32>>())
-        .map(|s| (s[0], s[1], s[2]))
-        .map(|f| (f.0 * f.1, f.1 * f.2, f.2 * f.0))
-        .map(|r| 2 * r.0 + 2 * r.1 + 2 * r.2 + [r.0, r.1, r.2].iter().min().unwrap())
+        .map(|mut s| {
+            let result = 2 * s[0] * s[1] + 2 * s[1] * s[2] + 2 * s[2] * s[0];
+            s.sort();
+            result + s[0] * s[1]
+        })
         .sum::<i32>()
         .to_string()
 }
 
 pub fn part_two() -> String {
-    String::new()
+    read_lines(2015, 2)
+        .iter()
+        .map(|p| p.split('x').map(|s| s.parse().unwrap()).collect::<Vec<i32>>())
+        .map(|mut s| {
+            s.sort();
+            (2 * s[0] + 2 * s[1]) + (s[0] * s[1] * s[2])
+        })
+        .sum::<i32>()
+        .to_string()
 }
