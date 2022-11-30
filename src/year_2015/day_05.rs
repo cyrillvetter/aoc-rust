@@ -1,4 +1,5 @@
 use crate::common::read_lines;
+use itertools::Itertools;
 use std::str;
 
 pub fn part_one() -> String {
@@ -8,19 +9,11 @@ pub fn part_one() -> String {
 
     let mut count = 0;
     for l in lines {
-        if disallowed.iter().any(|f| l.contains(f)) {
-            continue;
+        if !disallowed.iter().any(|f| l.contains(f)) &&
+           l.split(vowels).count() > 3 &&
+           l.chars().tuple_windows::<(_, _)>().any(|t| t.0 == t.1) {
+            count += 1;
         }
-
-        if l.split(vowels).count() <= 3 {
-            continue;
-        }
-
-        if !l.as_bytes().windows(2).any(|pair| pair[0] == pair[1]) {
-            continue;
-        }
-
-        count += 1;
     };
 
     return count.to_string();
@@ -31,17 +24,11 @@ pub fn part_two() -> String {
 
     let mut count = 0;
     for l in lines {
-        let char_bytes = l.as_bytes();
-
-        if !char_bytes.windows(3).any(|pair| pair[0] == pair[2]) {
-            continue;
+        if l.chars().tuple_windows::<(_, _, _)>().any(|pair| pair.0 == pair.2) &&
+           // TODO: Find better way to check for repeating chars (replace rfind)
+           l.chars().tuple_windows::<(_, _)>().enumerate().any(|(i, pair)| l.rfind(str::from_utf8(&[pair.0 as u8, pair.1 as u8]).unwrap()).map(|j| j > i + 1).unwrap_or(false)) {
+            count += 1;
         }
-
-        if !char_bytes.windows(2).enumerate().any(|(i, pair)| l.rfind(str::from_utf8(pair).unwrap()).map(|j| j > i + 1).unwrap_or(false)) {
-            continue;
-        }
-
-        count += 1;
     };
 
     return count.to_string();
