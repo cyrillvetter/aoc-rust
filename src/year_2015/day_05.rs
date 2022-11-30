@@ -1,5 +1,4 @@
 use crate::common::read_lines;
-use itertools::Itertools;
 use std::str;
 
 pub fn part_one() -> String {
@@ -11,7 +10,7 @@ pub fn part_one() -> String {
     for l in lines {
         if !disallowed.iter().any(|f| l.contains(f)) &&
            l.split(vowels).count() > 3 &&
-           l.chars().tuple_windows::<(_, _)>().any(|t| t.0 == t.1) {
+           l.as_bytes().windows(2).any(|t| t[0] == t[1]) {
             count += 1;
         }
     };
@@ -24,7 +23,7 @@ pub fn part_two() -> String {
 
     let mut count = 0;
     for l in lines {
-        if l.chars().tuple_windows::<(_, _, _)>().any(|pair| pair.0 == pair.2) &&
+        if l.as_bytes().windows(3).any(|pair| pair[0] == pair[2]) &&
            // TODO: Find better way to check for repeating chars (replace rfind and as_bytes)
            l.as_bytes().windows(2).enumerate().any(|(i, pair)| l.rfind(str::from_utf8(pair).unwrap()).map(|j| j > i + 1).unwrap_or(false)) {
             count += 1;

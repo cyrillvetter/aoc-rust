@@ -29,3 +29,9 @@ fn day_05() {
     assert_eq!(day_05::part_one(), "258");
     assert_eq!(day_05::part_two(), "53");
 }
+
+#[test]
+fn day_06() {
+    assert_eq!(day_06::part_one(), "569999");
+    assert_eq!(day_06::part_two(), "17836115");
+}

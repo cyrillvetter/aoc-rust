@@ -11,8 +11,8 @@ pub fn read_string(year: i32, day: i32) -> String {
     fs::read_to_string(&path).expect("File not found")
 }
 
-pub fn solve_parts(day: u8, func_one: impl FnOnce() -> String, func_two: impl FnOnce() -> String) {
-    println!("Executing day {} ...", day);
+pub fn solve_parts(year: u32, day: u8, func_one: impl FnOnce() -> String, func_two: impl FnOnce() -> String) {
+    println!("# Executing {} Day {} ...", year, day);
     solve(func_one, 1);
     solve(func_two, 2);
     println!();
