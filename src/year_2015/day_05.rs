@@ -25,8 +25,8 @@ pub fn part_two() -> String {
     let mut count = 0;
     for l in lines {
         if l.chars().tuple_windows::<(_, _, _)>().any(|pair| pair.0 == pair.2) &&
-           // TODO: Find better way to check for repeating chars (replace rfind)
-           l.chars().tuple_windows::<(_, _)>().enumerate().any(|(i, pair)| l.rfind(str::from_utf8(&[pair.0 as u8, pair.1 as u8]).unwrap()).map(|j| j > i + 1).unwrap_or(false)) {
+           // TODO: Find better way to check for repeating chars (replace rfind and as_bytes)
+           l.as_bytes().windows(2).enumerate().any(|(i, pair)| l.rfind(str::from_utf8(pair).unwrap()).map(|j| j > i + 1).unwrap_or(false)) {
             count += 1;
         }
     };
