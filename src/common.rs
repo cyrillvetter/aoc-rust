@@ -13,14 +13,15 @@ pub fn read_string(year: i32, day: i32) -> String {
 
 pub fn solve_parts(day: u8, func_one: impl FnOnce() -> String, func_two: impl FnOnce() -> String) {
     println!("Executing day {} ...", day);
-    solve(func_one);
-    solve(func_two);
+    solve(func_one, 1);
+    solve(func_two, 2);
+    println!();
 }
 
-fn solve(func: impl FnOnce() -> String) {
+fn solve(func: impl FnOnce() -> String, part: u8) {
     let now = Instant::now();
     let result = func();
     let elapsed_ms = (now.elapsed().as_micros() as f64) / 1_000.0;
 
-    println!("Part 1: {} ({}ms)", result, elapsed_ms);
+    println!("Part {}: {} ({}ms)", part, result, elapsed_ms);
 }
