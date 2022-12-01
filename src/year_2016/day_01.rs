@@ -1,11 +1,11 @@
-use crate::common::read_string;
+use crate::solution::Solution;
 use std::collections::HashSet;
 
-pub fn part_one() -> String {
+pub fn part_one(input: &str) -> Solution {
     let mut loc: (i32, i32) = (0, 0);
     let mut degress = 0;
 
-    for d in read_string(2016, 1).split(", ").into_iter() {
+    for d in input.split(", ").into_iter() {
         let (direction, steps) = d.split_at(1);
         let steps = steps.parse::<i32>().unwrap();
 
@@ -24,16 +24,16 @@ pub fn part_one() -> String {
         }
     }
 
-    (loc.0.abs() + loc.1.abs()).to_string()
+    Solution::I32(loc.0.abs() + loc.1.abs())
 }
 
-pub fn part_two() -> String {
+pub fn part_two(input: &str) -> Solution {
     let mut loc: (i32, i32) = (0, 0);
     let mut degress = 0;
     let mut visits: HashSet<(i32, i32)> = HashSet::new();
     visits.insert(loc);
 
-    for d in read_string(2016, 1).split(", ").into_iter() {
+    for d in input.split(", ").into_iter() {
         let (direction, steps) = d.split_at(1);
         let steps = steps.parse::<i32>().unwrap();
 
@@ -55,7 +55,7 @@ pub fn part_two() -> String {
             };
 
             if visits.contains(&inter_loc) {
-                return (inter_loc.0.abs() + inter_loc.1.abs()).to_string();
+                return Solution::I32(inter_loc.0.abs() + inter_loc.1.abs());
             }
 
             visits.insert(inter_loc);
@@ -76,4 +76,18 @@ fn calculate_degrees(curr: i32, next: i32) -> i32 {
     }
 
     n
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::solution::Solution;
+    use crate::common::read_string;
+
+    #[test]
+    fn check() {
+        let input = read_string(2016, 1);
+        assert_eq!(part_one(&input), Solution::I32(273));
+        assert_eq!(part_two(&input), Solution::I32(115));
+    }
 }

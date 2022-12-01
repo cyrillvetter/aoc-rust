@@ -1,17 +1,14 @@
+use crate::solution::Solution;
 use md5;
 
-pub fn part_one() -> String {
-    let input = "bgvyzdsv";
+pub fn part_one(input: &str) -> Solution {
     let zero_count = 5;
-
-    compute_hash(input, zero_count).to_string()
+    Solution::U32(compute_hash(input, zero_count))
 }
 
-pub fn part_two() -> String {
-    let input = "bgvyzdsv";
+pub fn part_two(input: &str) -> Solution {
     let zero_count = 6;
-
-    compute_hash(input, zero_count).to_string()
+    Solution::U32(compute_hash(input, zero_count))
 }
 
 fn compute_hash(input: &str, zero_count: usize) -> u32 {
@@ -36,5 +33,19 @@ fn compute_hash(input: &str, zero_count: usize) -> u32 {
         }
 
         i += 1;
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::solution::Solution;
+    use super::*;
+    use crate::common::read_string;
+
+    #[test]
+    fn check() {
+        let input = read_string(2015, 4);
+        assert_eq!(part_one(&input), Solution::U32(254575));
+        assert_eq!(part_two(&input), Solution::U32(1038736));
     }
 }

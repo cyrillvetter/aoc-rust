@@ -1,22 +1,36 @@
-use crate::common::read_string;
+use crate::solution::Solution;
 use itertools::Itertools;
 
-pub fn part_one() -> String {
-    read_string(2022, 1)
+pub fn part_one(input: &str) -> Solution {
+    let result = input
         .split("\n\n")
-        .into_iter()
-        .map(|v| v.split("\n").into_iter().map(|i| i.parse::<i32>().unwrap()).sum::<i32>())
-        .max().unwrap()
-        .to_string()
+        .map(|v| v.lines().map(|i| i.parse::<i32>().unwrap()).sum::<i32>())
+        .max().unwrap();
+
+    Solution::I32(result)
 }
 
-pub fn part_two() -> String {
-    read_string(2022, 1)
+pub fn part_two(input: &str) -> Solution {
+    let result = input
         .split("\n\n")
-        .into_iter()
-        .map(|v| v.split("\n").into_iter().map(|i| i.parse::<i32>().unwrap()).sum::<i32>())
+        .map(|v| v.lines().map(|i| i.parse::<i32>().unwrap()).sum::<i32>())
         .sorted_by(|a, b| Ord::cmp(&b, &a)) // Sort in descending order
         .take(3)
-        .sum::<i32>()
-        .to_string()
+        .sum::<i32>();
+
+    Solution::I32(result)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::solution::Solution;
+    use crate::common::read_string;
+
+    #[test]
+    fn check() {
+        let input = read_string(2022, 1);
+        assert_eq!(part_one(&input), Solution::I32(70613));
+        assert_eq!(part_two(&input), Solution::I32(205805));
+    }
 }

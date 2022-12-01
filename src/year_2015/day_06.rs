@@ -1,14 +1,13 @@
-use crate::common::read_lines;
+use crate::solution::Solution;
 use regex::Regex;
 
-pub fn part_one() -> String {
-    let lines = read_lines(2015, 6);
+pub fn part_one(input: &str) -> Solution {
     let mut grid = vec![vec![false; 1000]; 1000];
 
     let instr_regex = Regex::new("(turn off|turn on|toggle)\\s(\\d+),(\\d+)\\sthrough\\s(\\d+),(\\d+)").unwrap();
     let mut counter = 0;
 
-    for l in lines {
+    for l in input.lines() {
         let capts = instr_regex.captures(&l).unwrap();
 
         let action = &capts[1];
@@ -37,17 +36,16 @@ pub fn part_one() -> String {
         }
     }
 
-    counter.to_string()
+    Solution::I32(counter)
 }
 
-pub fn part_two() -> String {
-    let lines = read_lines(2015, 6);
+pub fn part_two(input: &str) -> Solution {
     let mut grid = vec![vec![0u32; 1000]; 1000];
 
     let instr_regex = Regex::new("(turn off|turn on|toggle)\\s(\\d+),(\\d+)\\sthrough\\s(\\d+),(\\d+)").unwrap();
     let mut counter = 0;
 
-    for l in lines {
+    for l in input.lines() {
         let capts = instr_regex.captures(&l).unwrap();
 
         let action = &capts[1];
@@ -74,5 +72,19 @@ pub fn part_two() -> String {
         }
     }
 
-    counter.to_string()
+    Solution::U32(counter)
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::solution::Solution;
+    use super::*;
+    use crate::common::read_string;
+
+    #[test]
+    fn check() {
+        let input = read_string(2015, 6);
+        assert_eq!(part_one(&input), Solution::I32(569999));
+        assert_eq!(part_two(&input), Solution::U32(17836115));
+    }
 }

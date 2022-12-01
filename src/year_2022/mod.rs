@@ -13,7 +13,4 @@ pub fn solve_day(day: u8) {
     };
 }
 
-#[cfg(test)]
-mod tests;
-
 mod day_01;

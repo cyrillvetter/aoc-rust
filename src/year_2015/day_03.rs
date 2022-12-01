@@ -1,8 +1,7 @@
+use crate::solution::Solution;
 use std::collections::HashSet;
-use crate::common::read_string;
 
-pub fn part_one() -> String {
-    let input = read_string(2015, 3);
+pub fn part_one(input: &str) -> Solution {
     let mut location: (i32, i32) = (0, 0);
 
     let mut visited: HashSet<(i32, i32)> = HashSet::new();
@@ -14,11 +13,10 @@ pub fn part_one() -> String {
         visited.insert(location);
     }
 
-    visited.len().to_string()
+    Solution::USize(visited.len())
 }
 
-pub fn part_two() -> String {
-    let input = read_string(2015, 3);
+pub fn part_two(input: &str) -> Solution {
     let mut santa_loc: (i32, i32) = (0, 0);
     let mut robot_loc: (i32, i32) = (0, 0);
     let mut santa_turn = true;
@@ -38,7 +36,7 @@ pub fn part_two() -> String {
         santa_turn = !santa_turn;
     }
 
-    visited.len().to_string()
+    Solution::USize(visited.len())
 }
 
 fn next_location(direction: char, current_loc: &(i32, i32)) -> (i32, i32) {
@@ -48,5 +46,19 @@ fn next_location(direction: char, current_loc: &(i32, i32)) -> (i32, i32) {
         '>' => (current_loc.0 + 1, current_loc.1),
         '<' => (current_loc.0 - 1, current_loc.1),
         _ => unreachable!()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::solution::Solution;
+    use super::*;
+    use crate::common::read_string;
+
+    #[test]
+    fn check() {
+        let input = read_string(2015, 3);
+        assert_eq!(part_one(&input), Solution::USize(2592));
+        assert_eq!(part_two(&input), Solution::USize(2360));
     }
 }
