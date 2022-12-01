@@ -1,6 +1,10 @@
 use crate::common::read_string;
 
 pub fn part_one() -> String {
+    let a = String::new();
+    let a = a;
+    println!("{}", a);
+
     read_string(2015, 1)
         .chars()
         .map(|c| if c == '(' { 1 } else { -1 })
