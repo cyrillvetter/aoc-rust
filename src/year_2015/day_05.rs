@@ -21,7 +21,6 @@ pub fn part_two(input: &str) -> Solution {
     let mut count: u32 = 0;
     for l in input.lines() {
         if l.as_bytes().windows(3).any(|pair| pair[0] == pair[2]) &&
-           // TODO: Find better way to check for repeating chars (replace rfind and as_bytes)
            l.as_bytes().windows(2).enumerate().any(|(i, pair)| l.rfind(str::from_utf8(pair).unwrap()).map(|j| j > i + 1).unwrap_or(false)) {
             count += 1;
         }
