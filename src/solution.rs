@@ -13,6 +13,7 @@ pub enum Solution {
     U128(u128),
     USize(usize),
     Str(String),
+    Empty,
 }
 
 impl Display for Solution {
@@ -26,6 +27,7 @@ impl Display for Solution {
             U128(x) => x.fmt(f),
             USize(x) => x.fmt(f),
             Str(x) => x.fmt(f),
+            Empty => write!(f, "Not implemented"),
         }
     }
 }

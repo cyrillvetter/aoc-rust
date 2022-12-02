@@ -4,7 +4,7 @@ pub fn part_one(input: &str) -> Solution {
     let mut score = 0;
 
     for line in input.lines() {
-        let split: (&str, &str) = line.split_at(1);
+        let split = line.split_at(1);
 
         let a_score = get_choice_score(split.0);
         let mut b_score = get_choice_score(split.1.trim());
@@ -24,7 +24,7 @@ pub fn part_two(input: &str) -> Solution {
     let mut score = 0;
 
     for line in input.lines() {
-        let split: (&str, &str) = line.split_at(1);
+        let split = line.split_at(1);
 
         let a_score = get_choice_score(split.0);
         score += match split.1.trim() {

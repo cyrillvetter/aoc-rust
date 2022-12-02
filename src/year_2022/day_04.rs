@@ -16,7 +16,7 @@ mod tests {
 
     #[test]
     fn check() {
-        let input = read_string(2022, 3);
+        let input = read_string(2022, 5);
         assert_eq!(part_one(&input), Solution::Empty);
         assert_eq!(part_two(&input), Solution::Empty);
     }
