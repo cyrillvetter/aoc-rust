@@ -1,33 +1,30 @@
 use crate::solution::Solution;
 use itertools::Itertools;
 
-const LOWER_ALPH: &str = "abcdefghijklmnopqrstuvwxyz";
-const UPPER_ALPH: &str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
 pub fn part_one(input: &str) -> Solution {
     let priority_sum = input
         .lines()
         .map(|l| l.split_at(l.len() / 2))
-        .map(|comparts| comparts.0.chars().find(|c| comparts.1.chars().contains(c)).unwrap())
+        .map(|comparts| comparts.0.bytes().find(|c| comparts.1.bytes().contains(c)).unwrap())
         .map(|item| get_item_priority(item))
-        .sum::<usize>();
+        .sum::<u32>();
 
-    Solution::USize(priority_sum)
+    Solution::U32(priority_sum)
 }
 
 pub fn part_two(input: &str) -> Solution {
     let priority_sum = input
         .lines().chunks(3).into_iter()
         .map(|chunks| chunks.collect_tuple::<(_, _, _)>().unwrap())
-        .map(|comparts| comparts.0.chars().find(|c| comparts.1.chars().contains(c) && comparts.2.chars().contains(c)).unwrap())
+        .map(|comparts| comparts.0.bytes().find(|c| comparts.1.bytes().contains(c) && comparts.2.bytes().contains(c)).unwrap())
         .map(|badge| get_item_priority(badge))
-        .sum::<usize>();
+    .sum::<u32>();
 
-    Solution::USize(priority_sum)
+    Solution::U32(priority_sum)
 }
 
-fn get_item_priority(item: char) -> usize {
-    LOWER_ALPH.chars().position(|a| a == item).unwrap_or_else(|| UPPER_ALPH.chars().position(|a| a == item).unwrap() + 26) + 1
+fn get_item_priority(item: u8) -> u32 {
+    if item > 96 { item as u32 - 96 } else { item as u32 - 38 }
 }
 
 #[cfg(test)]
@@ -39,7 +36,7 @@ mod tests {
     #[test]
     fn check() {
         let input = read_string(2022, 3);
-        assert_eq!(part_one(&input), Solution::USize(7581));
-        assert_eq!(part_two(&input), Solution::USize(2525));
+        assert_eq!(part_one(&input), Solution::U32(7581));
+        assert_eq!(part_two(&input), Solution::U32(2525));
     }
 }
