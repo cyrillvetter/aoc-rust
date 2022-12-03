@@ -2,8 +2,7 @@ use std::fmt::{Display, Formatter, Result};
 use Solution::*;
 
 #[allow(dead_code)]
-#[derive(Debug)]
-#[derive(PartialEq)]
+#[derive(Debug, PartialEq)]
 pub enum Solution {
     I32(i32),
     I64(i64),
