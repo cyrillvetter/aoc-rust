@@ -1,5 +1,6 @@
 use crate::solution::Solution;
 use regex::Regex;
+use std::cmp::max;
 
 pub fn part_one(input: &str) -> Solution {
     let mut grid = vec![vec![false; 1000]; 1000];
@@ -8,13 +9,13 @@ pub fn part_one(input: &str) -> Solution {
     let mut counter = 0;
 
     for l in input.lines() {
-        let capts = instr_regex.captures(&l).unwrap();
+        let captures = instr_regex.captures(l).unwrap();
 
-        let action = &capts[1];
-        let from_x = capts[2].parse::<usize>().unwrap();
-        let from_y = capts[3].parse::<usize>().unwrap();
-        let to_x = capts[4].parse::<usize>().unwrap();
-        let to_y = capts[5].parse::<usize>().unwrap();
+        let action = &captures[1];
+        let from_x = captures[2].parse::<usize>().unwrap();
+        let from_y = captures[3].parse::<usize>().unwrap();
+        let to_x = captures[4].parse::<usize>().unwrap();
+        let to_y = captures[5].parse::<usize>().unwrap();
 
         for y in grid.iter_mut().skip(from_y).take(to_y - from_y + 1) {
             for x in y.iter_mut().skip(from_x).take(to_x - from_x + 1) {
@@ -40,26 +41,26 @@ pub fn part_one(input: &str) -> Solution {
 }
 
 pub fn part_two(input: &str) -> Solution {
-    let mut grid = vec![vec![0u32; 1000]; 1000];
+    let mut grid = vec![vec![0i32; 1000]; 1000];
 
     let instr_regex = Regex::new("(turn off|turn on|toggle)\\s(\\d+),(\\d+)\\sthrough\\s(\\d+),(\\d+)").unwrap();
     let mut counter = 0;
 
     for l in input.lines() {
-        let capts = instr_regex.captures(&l).unwrap();
+        let captures = instr_regex.captures(l).unwrap();
 
-        let action = &capts[1];
-        let from_x = capts[2].parse::<usize>().unwrap();
-        let from_y = capts[3].parse::<usize>().unwrap();
-        let to_x = capts[4].parse::<usize>().unwrap();
-        let to_y = capts[5].parse::<usize>().unwrap();
+        let action = &captures[1];
+        let from_x = captures[2].parse::<usize>().unwrap();
+        let from_y = captures[3].parse::<usize>().unwrap();
+        let to_x = captures[4].parse::<usize>().unwrap();
+        let to_y = captures[5].parse::<usize>().unwrap();
 
         for y in grid.iter_mut().skip(from_y).take(to_y - from_y + 1) {
             for x in y.iter_mut().skip(from_x).take(to_x - from_x + 1) {
                 let prev = *x;
-                let next = match action {
+                let next: i32 = match action {
                     "turn on" => prev + 1,
-                    "turn off" => prev.checked_sub(1).unwrap_or(0u32),
+                    "turn off" => max(0, prev - 1),
                     _ => prev + 2,
                 };
 
@@ -72,7 +73,7 @@ pub fn part_two(input: &str) -> Solution {
         }
     }
 
-    Solution::U32(counter)
+    Solution::I32(counter)
 }
 
 #[cfg(test)]
@@ -85,6 +86,6 @@ mod tests {
     fn check() {
         let input = read_string(2015, 6);
         assert_eq!(part_one(&input), Solution::I32(569999));
-        assert_eq!(part_two(&input), Solution::U32(17836115));
+        assert_eq!(part_two(&input), Solution::I32(17836115));
     }
 }

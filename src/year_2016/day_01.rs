@@ -3,19 +3,19 @@ use std::collections::HashSet;
 
 pub fn part_one(input: &str) -> Solution {
     let mut loc: (i32, i32) = (0, 0);
-    let mut degress = 0;
+    let mut degrees = 0;
 
-    for d in input.split(", ").into_iter() {
+    for d in input.split(", ") {
         let (direction, steps) = d.split_at(1);
         let steps = steps.parse::<i32>().unwrap();
 
-        degress = match direction {
-            "R" => calculate_degrees(degress, 90),
-            "L" => calculate_degrees(degress, -90),
+        degrees = match direction {
+            "R" => calculate_degrees(degrees, 90),
+            "L" => calculate_degrees(degrees, -90),
             _ => unreachable!(),
         };
 
-        loc = match degress {
+        loc = match degrees {
             0 => (loc.0 + steps, loc.1),
             90 => (loc.0, loc.1 + steps),
             180 => (loc.0 - steps, loc.1),
@@ -29,24 +29,24 @@ pub fn part_one(input: &str) -> Solution {
 
 pub fn part_two(input: &str) -> Solution {
     let mut loc: (i32, i32) = (0, 0);
-    let mut degress = 0;
+    let mut degrees = 0;
     let mut visits: HashSet<(i32, i32)> = HashSet::new();
     visits.insert(loc);
 
-    for d in input.split(", ").into_iter() {
+    for d in input.split(", ") {
         let (direction, steps) = d.split_at(1);
         let steps = steps.parse::<i32>().unwrap();
 
-        degress = match direction {
-            "R" => calculate_degrees(degress, 90),
-            "L" => calculate_degrees(degress, -90),
+        degrees = match direction {
+            "R" => calculate_degrees(degrees, 90),
+            "L" => calculate_degrees(degrees, -90),
             _ => unreachable!(),
         };
 
-        let mut inter_loc = loc;
+        let mut temp_loc = loc;
 
         for l in 1..=steps {
-            inter_loc = match degress {
+            temp_loc = match degrees {
                 0 => (loc.0 + l, loc.1),
                 90 => (loc.0, loc.1 + l),
                 180 => (loc.0 - l, loc.1),
@@ -54,14 +54,14 @@ pub fn part_two(input: &str) -> Solution {
                 _ => unreachable!(),
             };
 
-            if visits.contains(&inter_loc) {
-                return Solution::I32(inter_loc.0.abs() + inter_loc.1.abs());
+            if visits.contains(&temp_loc) {
+                return Solution::I32(temp_loc.0.abs() + temp_loc.1.abs());
             }
 
-            visits.insert(inter_loc);
+            visits.insert(temp_loc);
         }
 
-        loc = inter_loc;
+        loc = temp_loc;
     }
 
     unreachable!()

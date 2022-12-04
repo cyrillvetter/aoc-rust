@@ -6,7 +6,7 @@ pub fn part_one(input: &str) -> Solution {
         .lines()
         .map(|l| l.split_at(l.len() / 2))
         .map(|comparts| comparts.0.bytes().find(|c| comparts.1.bytes().contains(c)).unwrap())
-        .map(|item| get_item_priority(item))
+        .map(get_item_priority)
         .sum::<u32>();
 
     Solution::U32(priority_sum)
@@ -17,8 +17,8 @@ pub fn part_two(input: &str) -> Solution {
         .lines().chunks(3).into_iter()
         .map(|chunks| chunks.collect_tuple::<(_, _, _)>().unwrap())
         .map(|comparts| comparts.0.bytes().find(|c| comparts.1.bytes().contains(c) && comparts.2.bytes().contains(c)).unwrap())
-        .map(|badge| get_item_priority(badge))
-    .sum::<u32>();
+        .map(get_item_priority)
+        .sum::<u32>();
 
     Solution::U32(priority_sum)
 }

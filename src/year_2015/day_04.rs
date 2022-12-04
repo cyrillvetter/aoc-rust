@@ -1,5 +1,4 @@
 use crate::solution::Solution;
-use md5;
 
 pub fn part_one(input: &str) -> Solution {
     let zero_count = 5;

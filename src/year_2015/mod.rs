@@ -14,7 +14,7 @@ pub fn solve_day(day: u8) {
         4 => solve_parts(2015, day, day_04::part_one, day_04::part_two),
         5 => solve_parts(2015, day, day_05::part_one, day_05::part_two),
         6 => solve_parts(2015, day, day_06::part_one, day_06::part_two),
-        _ => return,
+        _ => (),
     };
 }
 
