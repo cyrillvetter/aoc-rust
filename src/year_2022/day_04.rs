@@ -30,17 +30,3 @@ fn fully_contains(a1: (u16, u16), a2: (u16, u16)) -> bool {
 fn overlaps(a1: (u16, u16), a2: (u16, u16)) -> bool {
     a1.0 <= a2.1 && a2.0 <= a1.1
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::solution::Solution;
-    use crate::common::read_string;
-
-    #[test]
-    fn check() {
-        let input = read_string(2022, 4);
-        assert_eq!(part_one(&input), Solution::USize(530));
-        assert_eq!(part_two(&input), Solution::USize(903));
-    }
-}

@@ -77,17 +77,3 @@ fn calculate_degrees(curr: i32, next: i32) -> i32 {
 
     n
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::solution::Solution;
-    use crate::common::read_string;
-
-    #[test]
-    fn check() {
-        let input = read_string(2016, 1);
-        assert_eq!(part_one(&input), Solution::I32(273));
-        assert_eq!(part_two(&input), Solution::I32(115));
-    }
-}

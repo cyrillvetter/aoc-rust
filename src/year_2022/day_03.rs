@@ -26,17 +26,3 @@ pub fn part_two(input: &str) -> Solution {
 fn get_item_priority(item: u8) -> u32 {
     if item > 96 { item as u32 - 96 } else { item as u32 - 38 }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::solution::Solution;
-    use crate::common::read_string;
-
-    #[test]
-    fn check() {
-        let input = read_string(2022, 3);
-        assert_eq!(part_one(&input), Solution::U32(7581));
-        assert_eq!(part_two(&input), Solution::U32(2525));
-    }
-}

@@ -68,17 +68,3 @@ fn build_instructions(line: &str, pattern: &Regex) -> (usize, usize, usize) {
         .map(|c| c.as_str().parse::<usize>().unwrap())
         .collect_tuple::<(_, _, _)>().unwrap()
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::solution::Solution;
-    use crate::common::read_string;
-
-    #[test]
-    fn check() {
-        let input = read_string(2022, 5);
-        assert_eq!(part_one(&input), Solution::Empty);
-        assert_eq!(part_two(&input), Solution::Empty);
-    }
-}

@@ -64,17 +64,3 @@ fn instr_mut(instr: char) -> (i32, i32) {
         _ => unreachable!(),
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::solution::Solution;
-    use crate::common::read_string;
-
-    #[test]
-    fn check() {
-        let input = read_string(2016, 2);
-        assert_eq!(part_one(&input), Solution::Str(String::from("99332")));
-        assert_eq!(part_two(&input), Solution::Str(String::from("DD483")));
-    }
-}

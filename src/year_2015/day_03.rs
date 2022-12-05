@@ -48,17 +48,3 @@ fn next_location(direction: char, current_loc: &(i32, i32)) -> (i32, i32) {
         _ => unreachable!()
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use crate::solution::Solution;
-    use super::*;
-    use crate::common::read_string;
-
-    #[test]
-    fn check() {
-        let input = read_string(2015, 3);
-        assert_eq!(part_one(&input), Solution::USize(2592));
-        assert_eq!(part_two(&input), Solution::USize(2360));
-    }
-}

@@ -28,17 +28,3 @@ pub fn part_two(input: &str) -> Solution {
 
     Solution::U32(count)
 }
-
-#[cfg(test)]
-mod tests {
-    use crate::solution::Solution;
-    use super::*;
-    use crate::common::read_string;
-
-    #[test]
-    fn check() {
-        let input = read_string(2015, 5);
-        assert_eq!(part_one(&input), Solution::U32(258));
-        assert_eq!(part_two(&input), Solution::U32(53));
-    }
-}

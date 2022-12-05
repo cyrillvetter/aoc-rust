@@ -46,17 +46,3 @@ fn get_choice_score(choice: &str) -> u32 {
         _ => unreachable!()
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::solution::Solution;
-    use crate::common::read_string;
-
-    #[test]
-    fn check() {
-        let input = read_string(2022, 2);
-        assert_eq!(part_one(&input), Solution::U32(11767));
-        assert_eq!(part_two(&input), Solution::U32(13886));
-    }
-}

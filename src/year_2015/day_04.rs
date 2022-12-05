@@ -34,17 +34,3 @@ fn compute_hash(input: &str, zero_count: usize) -> u32 {
         i += 1;
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use crate::solution::Solution;
-    use super::*;
-    use crate::common::read_string;
-
-    #[test]
-    fn check() {
-        let input = read_string(2015, 4);
-        assert_eq!(part_one(&input), Solution::U32(254575));
-        assert_eq!(part_two(&input), Solution::U32(1038736));
-    }
-}
