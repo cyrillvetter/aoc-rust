@@ -3,7 +3,7 @@ use itertools::Itertools;
 
 pub fn part_one(input: &str) -> Solution {
     let result = input
-        .split("\n\n")
+        .split("\r\n\r\n")
         .map(|v| v.lines().map(|i| i.parse::<i32>().unwrap()).sum::<i32>())
         .max().unwrap();
 
@@ -12,7 +12,7 @@ pub fn part_one(input: &str) -> Solution {
 
 pub fn part_two(input: &str) -> Solution {
     let result = input
-        .split("\n\n")
+        .split("\r\n\r\n")
         .map(|v| v.lines().map(|i| i.parse::<i32>().unwrap()).sum::<i32>())
         .sorted_by(|a, b| Ord::cmp(&b, &a)) // Sort in descending order
         .take(3)
