@@ -4,7 +4,7 @@ use std::time::Instant;
 
 pub fn read_string(year: u32, day: u8) -> String {
     let path = format!("./src/year_{}/inputs/{}.txt", year, day);
-    fs::read_to_string(&path).expect("File not found")
+    fs::read_to_string(&path).expect("File not found").replace("\r\n", "\n")
 }
 
 pub fn solve_parts(year: u32, day: u8, func_one: impl FnOnce(&str) -> Solution, func_two: impl FnOnce(&str) -> Solution) {

@@ -8,11 +8,13 @@ pub fn part_one(input: &str) -> Solution {
     let mut crates = build_crates(parts.0);
 
     for l in parts.1.lines() {
-        let instructions = build_instructions(l, &number_match);
-        for _ in 0..instructions.0 {
-            let item = crates[instructions.1 - 1].pop().unwrap();
-            crates[instructions.2 - 1].push(item)
-        }
+        let instr = build_instructions(l, &number_match);
+
+        let remove_index = crates[instr.from - 1].len() - instr.amount;
+        let mut pulled_crates = crates[instr.from - 1].split_off(remove_index);
+
+        pulled_crates.reverse();
+        crates[instr.to - 1].append(&mut pulled_crates);
     }
 
     let top_crates: String = crates.iter().map(|s| s.last().unwrap()).collect();
@@ -25,17 +27,21 @@ pub fn part_two(input: &str) -> Solution {
     let mut crates = build_crates(parts.0);
 
     for l in parts.1.lines() {
-        let instructions = build_instructions(l, &number_match);
+        let instr = build_instructions(l, &number_match);
 
-        for i in (0..instructions.0).rev() {
-            let len = crates[instructions.1 - 1].len() - 1 - i;
-            let item = crates[instructions.1 - 1].remove(len);
-            crates[instructions.2 - 1].push(item);
-        }
+        let remove_index = crates[instr.from - 1].len() - instr.amount;
+        let mut pulled_crates = crates[instr.from - 1].split_off(remove_index);
+        crates[instr.to - 1].append(&mut pulled_crates);
     }
 
     let top_crates: String = crates.iter().map(|s| s.last().unwrap()).collect();
     Solution::Str(top_crates)
+}
+
+struct Instruction {
+    amount: usize,
+    from: usize,
+    to: usize,
 }
 
 fn build_crates(crate_part: &str) -> Vec<Vec<char>> {
@@ -62,9 +68,15 @@ fn build_crates(crate_part: &str) -> Vec<Vec<char>> {
     crates
 }
 
-fn build_instructions(line: &str, pattern: &Regex) -> (usize, usize, usize) {
-    pattern
+fn build_instructions(line: &str, pattern: &Regex) -> Instruction {
+    let tup = pattern
         .find_iter(line)
         .map(|c| c.as_str().parse::<usize>().unwrap())
-        .collect_tuple::<(_, _, _)>().unwrap()
+        .collect_vec();
+
+    Instruction {
+        amount: tup[0],
+        from: tup[1],
+        to: tup[2],
+    }
 }

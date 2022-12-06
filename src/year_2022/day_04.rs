@@ -4,8 +4,8 @@ use itertools::Itertools;
 pub fn part_one(input: &str) -> Solution {
     let fully_contains_count = input
         .lines()
-        .map(|l| l.split(","))
-        .map(|s| s.map(|i| i.split("-").map(|j| j.parse::<u16>().unwrap()).collect_tuple::<(_, _)>().unwrap()).collect_vec())
+        .map(|l| l.split(','))
+        .map(|s| s.map(|i| i.split('-').map(|j| j.parse::<u16>().unwrap()).collect_tuple::<(_, _)>().unwrap()).collect_vec())
         .filter(|r| fully_contains(r[0], r[1]))
         .count();
 
@@ -15,8 +15,8 @@ pub fn part_one(input: &str) -> Solution {
 pub fn part_two(input: &str) -> Solution {
     let overlaps_count = input
         .lines()
-        .map(|l| l.split(","))
-        .map(|s| s.map(|i| i.split("-").map(|j| j.parse::<u16>().unwrap()).collect_tuple::<(_, _)>().unwrap()).collect_vec())
+        .map(|l| l.split(','))
+        .map(|s| s.map(|i| i.split('-').map(|j| j.parse::<u16>().unwrap()).collect_tuple::<(_, _)>().unwrap()).collect_vec())
         .filter(|r| overlaps(r[0], r[1]))
         .count();
 
