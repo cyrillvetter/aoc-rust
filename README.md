@@ -10,6 +10,7 @@ Implemented in Rust
 - Day [04](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_04.rs): Camp Cleanup
 - Day [05](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_05.rs): Supply Stacks
 - Day [06](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_06.rs): Tuning Trouble
+- Day [07](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_07.rs): No Space Left On Device
 
 ## [2016](https://adventofcode.com/2016)
 
