@@ -50,3 +50,10 @@ fn day_07() {
     assert_eq!(day_07::part_one(&input), Solution::U32(1432936));
     assert_eq!(day_07::part_two(&input), Solution::U32(272298));
 }
+
+#[test]
+fn day_08() {
+    let input = read_string(2022, 8);
+    assert_eq!(day_08::part_one(&input), Solution::USize(1805));
+    assert_eq!(day_08::part_two(&input), Solution::U32(444528));
+}
