@@ -12,6 +12,7 @@ Implemented in Rust
 - Day [06](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_06.rs): Tuning Trouble
 - Day [07](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_07.rs): No Space Left On Device
 - Day [08](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_08.rs): Treetop Tree House
+- Day [09](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_09.rs): Rope Bridge
 
 ## [2016](https://adventofcode.com/2016)
 
