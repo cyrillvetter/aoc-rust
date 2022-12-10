@@ -65,3 +65,16 @@ fn day_09() {
     assert_eq!(day_09::part_two(&input), Solution::USize(2458));
 }
 
+#[test]
+fn day_10() {
+    let input = read_string(2022, 10);
+    assert_eq!(day_10::part_one(&input), Solution::I32(14320));
+    let expected_part2 = "\n\
+    ###...##..###..###..#..#..##..###....##.\n\
+    #..#.#..#.#..#.#..#.#.#..#..#.#..#....#.\n\
+    #..#.#....#..#.###..##...#..#.#..#....#.\n\
+    ###..#....###..#..#.#.#..####.###.....#.\n\
+    #....#..#.#....#..#.#.#..#..#.#....#..#.\n\
+    #.....##..#....###..#..#.#..#.#.....##..";
+    assert_eq!(day_10::part_two(&input), Solution::Str(String::from(expected_part2)));
+}

@@ -22,5 +22,5 @@ fn solve(func: impl FnOnce(&str) -> Solution, input: &str, part: u8) {
     let result = func(input);
     let elapsed_ms = (now.elapsed().as_micros() as f64) / 1_000.0;
 
-    println!("Part {}: {} ({}ms)", part, result, elapsed_ms);
+    println!("Part {} ({}ms): {}", part, elapsed_ms, result);
 }
