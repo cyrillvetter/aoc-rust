@@ -69,14 +69,14 @@ fn build_crates(crate_part: &str) -> Vec<Vec<char>> {
 }
 
 fn build_instructions(line: &str, pattern: &Regex) -> Instruction {
-    let tup = pattern
+    let instr = pattern
         .find_iter(line)
         .map(|c| c.as_str().parse::<usize>().unwrap())
         .collect_vec();
 
     Instruction {
-        amount: tup[0],
-        from: tup[1],
-        to: tup[2],
+        amount: instr[0],
+        from: instr[1],
+        to: instr[2],
     }
 }

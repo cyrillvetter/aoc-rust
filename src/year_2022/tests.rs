@@ -78,3 +78,10 @@ fn day_10() {
     #.....##..#....###..#..#.#..#.#.....##..";
     assert_eq!(day_10::part_two(&input), Solution::Str(String::from(expected_part2)));
 }
+
+#[test]
+fn day_11() {
+    let input = read_string(2022, 11);
+    assert_eq!(day_11::part_one(&input), Solution::U64(113220));
+    assert_eq!(day_11::part_two(&input), Solution::U64(30599555965));
+}
