@@ -15,6 +15,7 @@ Implemented in Rust
 - Day [09](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_09.rs): Rope Bridge
 - Day [10](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_10.rs): Cathode-Ray Tube
 - Day [11](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_11.rs): Monkey in the Middle
+- Day [12](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_12.rs): Hill Climbing Algorithm
 
 ## [2016](https://adventofcode.com/2016)
 
