@@ -1,3 +1,5 @@
+extern crate core;
+
 fn main() {
     println!("🎄 Advent of Code 🎄");
 

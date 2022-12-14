@@ -4,22 +4,22 @@ use std::collections::VecDeque;
 const ADJACENT: [(i32, i32); 4] = [(-1, 0), (1, 0), (0, -1), (0, 1)];
 
 pub fn part_one(input: &str) -> Solution {
-    let start = get_position_of(&input, 'S');
-    let end = get_position_of(&input, 'E');
+    let start = get_first_position_of(&input, 'S');
+    let end = get_first_position_of(&input, 'E');
     let grid = parse(input);
-    let steps = get_shortest_path(&grid, start, end).unwrap();
+    let steps = bfs(&grid, start, end).unwrap();
 
     Solution::USize(steps)
 }
 
 pub fn part_two(input: &str) -> Solution {
-    let end = get_position_of(&input, 'E');
+    let end = get_first_position_of(&input, 'E');
     let grid = parse(input);
 
     let mut shortest_path = usize::MAX;
     for (y, l) in grid.iter().enumerate() {
         for (x, _) in l.iter().enumerate().filter(|(_, c)| **c == b'a') {
-            if let Some(steps) = get_shortest_path(&grid, (y as i32, x as i32), end) {
+            if let Some(steps) = bfs(&grid, (y as i32, x as i32), end) {
                 if steps < shortest_path {
                     shortest_path = steps;
                 }
@@ -30,8 +30,7 @@ pub fn part_two(input: &str) -> Solution {
     Solution::USize(shortest_path)
 }
 
-// Breadth-first search
-fn get_shortest_path(grid: &Vec<Vec<u8>>, source: (i32, i32), target: (i32, i32)) -> Option<usize> {
+fn bfs(grid: &Vec<Vec<u8>>, source: (i32, i32), target: (i32, i32)) -> Option<usize> {
     let cols = grid.len();
     let rows = grid[0].len();
 
@@ -107,7 +106,7 @@ fn parse(input: &str) -> Vec<Vec<u8>> {
     grid
 }
 
-fn get_position_of(grid: &str, of: char) -> (i32, i32) {
+fn get_first_position_of(grid: &str, of: char) -> (i32, i32) {
     for (y, i) in grid.lines().enumerate() {
         if i.contains(of) {
             let x = i.chars().position(|c| c == of).unwrap();

@@ -92,3 +92,10 @@ fn day_12() {
     assert_eq!(day_12::part_one(&input), Solution::USize(497));
     assert_eq!(day_12::part_two(&input), Solution::USize(492));
 }
+
+#[test]
+fn day_13() {
+    let input = read_string(2022, 13);
+    assert_eq!(day_13::part_one(&input), Solution::USize(5682));
+    assert_eq!(day_13::part_two(&input), Solution::USize(20304));
+}
