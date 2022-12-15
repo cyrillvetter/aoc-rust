@@ -53,6 +53,7 @@ pub fn part_two(input: &str) -> Solution {
 
     'outer: loop {
         let mut curr = SAND_SOURCE;
+        sand_units += 1;
         loop {
             let prev = curr;
             curr = match straight_drop(&cave, curr, y_max + 3) {
@@ -72,10 +73,9 @@ pub fn part_two(input: &str) -> Solution {
         }
 
         cave[curr.0][curr.1] = true;
-        sand_units += 1;
     }
 
-    Solution::U32(sand_units + 1)
+    Solution::U32(sand_units)
 }
 
 fn straight_drop(cave: &[Vec<bool>], coord: (usize, usize), y_max: usize) -> Option<usize> {

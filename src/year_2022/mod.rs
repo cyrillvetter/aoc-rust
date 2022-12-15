@@ -22,6 +22,7 @@ pub fn solve_day(day: u8) {
         12 => solve_parts(2022, day, day_12::part_one, day_12::part_two),
         13 => solve_parts(2022, day, day_13::part_one, day_13::part_two),
         14 => solve_parts(2022, day, day_14::part_one, day_14::part_two),
+        15 => solve_parts(2022, day, day_15::part_one, day_15::part_two),
         _ => (),
     };
 }
@@ -43,3 +44,4 @@ mod day_11;
 mod day_12;
 mod day_13;
 mod day_14;
+mod day_15;
