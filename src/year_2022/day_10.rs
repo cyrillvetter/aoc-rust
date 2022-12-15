@@ -1,6 +1,7 @@
 use crate::solution::Solution;
 use itertools::Itertools;
 
+#[allow(clippy::mut_range_bound)]
 pub fn part_one(input: &str) -> Solution {
     let mut cycles = 1;
     let mut x = 1;
@@ -29,6 +30,7 @@ pub fn part_one(input: &str) -> Solution {
     Solution::I32(signal_strength)
 }
 
+#[allow(clippy::mut_range_bound)]
 pub fn part_two(input: &str) -> Solution {
     let mut cycles = 1;
     let mut x = 1;

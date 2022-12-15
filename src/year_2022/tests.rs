@@ -99,3 +99,10 @@ fn day_13() {
     assert_eq!(day_13::part_one(&input), Solution::USize(5682));
     assert_eq!(day_13::part_two(&input), Solution::USize(20304));
 }
+
+#[test]
+fn day_14() {
+    let input = read_string(2022, 14);
+    assert_eq!(day_14::part_one(&input), Solution::U32(825));
+    assert_eq!(day_14::part_two(&input), Solution::U32(26729));
+}

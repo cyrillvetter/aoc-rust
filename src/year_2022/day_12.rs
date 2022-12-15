@@ -4,8 +4,8 @@ use std::collections::VecDeque;
 const ADJACENT: [(i32, i32); 4] = [(-1, 0), (1, 0), (0, -1), (0, 1)];
 
 pub fn part_one(input: &str) -> Solution {
-    let start = get_first_position_of(&input, 'S');
-    let end = get_first_position_of(&input, 'E');
+    let start = get_first_position_of(input, 'S');
+    let end = get_first_position_of(input, 'E');
     let grid = parse(input);
     let steps = bfs(&grid, start, end).unwrap();
 
@@ -13,7 +13,7 @@ pub fn part_one(input: &str) -> Solution {
 }
 
 pub fn part_two(input: &str) -> Solution {
-    let end = get_first_position_of(&input, 'E');
+    let end = get_first_position_of(input, 'E');
     let grid = parse(input);
 
     let mut shortest_path = usize::MAX;

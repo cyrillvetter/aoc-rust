@@ -9,7 +9,7 @@ pub fn part_one(input: &str) -> Solution {
         .map(|packets| (parse(packets.0.as_bytes(), &mut 1), parse(packets.1.as_bytes(), &mut 1)))
         .map(|(p1, p2)| p1.cmp(&p2))
         .enumerate()
-        .filter(|(i, ord)| ord.is_lt())
+        .filter(|(_, ord)| ord.is_lt())
         .map(|(i, _)| i + 1)
         .sum();
 
@@ -62,18 +62,10 @@ impl Ord for Element {
                         Some(ord)
                     }
                 })
-                .unwrap_or_else(|| {
-                    if left.len() > right.len() {
-                        Ordering::Greater
-                    } else if left.len() < right.len() {
-                        Ordering::Less
-                    } else {
-                        Ordering::Equal
-                    }
-                }),
+                .unwrap_or_else(|| left.len().cmp(&right.len())),
 
             // Compare number to list (mixed type)
-            (Element::Num(n), Element::List(_)) => Element::List(vec![Element::Num(*n)]).cmp(&other),
+            (Element::Num(n), Element::List(_)) => Element::List(vec![Element::Num(*n)]).cmp(other),
 
             // Compare list to number (mixed type)
             (Element::List(_), Element::Num(n)) => self.cmp(&Element::List(vec![Element::Num(*n)])),
@@ -105,7 +97,7 @@ fn parse(input: &[u8], pos: &mut usize) -> Element {
             b'[' => {
                 depth += 1;
                 *pos += 1;
-                let inner = parse(&input, pos);
+                let inner = parse(input, pos);
                 elems.push(inner);
                 items_to_skip += *pos - i;
             },
@@ -117,6 +109,8 @@ fn parse(input: &[u8], pos: &mut usize) -> Element {
             },
             _ => {
                 let mut digit = c - 48;
+
+                // 10 is the only possible two digit number.
                 if *input.get(i + 1).unwrap_or(&255) == b'0' {
                     digit = 10;
                     items_to_skip += 1;

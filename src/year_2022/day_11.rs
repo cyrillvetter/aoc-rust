@@ -26,7 +26,7 @@ fn solve(mut monkeys: Vec<Monkey>, rounds: u16, reduce_worry_fn: &dyn Fn(u64) ->
 
             for item in &m.items {
                 let mut item_worry = *item;
-                let operand = m.operation.unwrap_or_else(|| item_worry);
+                let operand = m.operation.unwrap_or(item_worry);
                 item_worry = if m.is_operation_addition { item_worry + operand } else { item_worry * operand };
 
                 item_worry = reduce_worry_fn(item_worry);
