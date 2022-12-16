@@ -54,6 +54,12 @@ struct Pair {
     beacon: Point,
 }
 
+impl Pair {
+    fn new(sensor_x: i32, sensor_y: i32, beacon_x: i32, beacon_y: i32) -> Self {
+        Self { sensor: Point { x: sensor_x, y: sensor_y }, beacon: Point { x: beacon_x, y: beacon_y } }
+    }
+}
+
 struct Point {
     x: i32,
     y: i32,
@@ -72,6 +78,6 @@ fn parse(input: &str) -> Vec<Pair> {
             .find_iter(l)
             .map(|r| r.as_str().parse::<i32>().unwrap())
             .collect_vec())
-        .map(|c| Pair { sensor: Point { x: c[0], y: c[1] }, beacon: Point { x: c[2], y: c[3] } })
+        .map(|c| Pair::new(c[0], c[1], c[2], c[3]))
         .collect_vec()
 }

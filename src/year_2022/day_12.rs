@@ -1,55 +1,46 @@
 use crate::solution::Solution;
 use std::collections::VecDeque;
+use std::num::NonZeroUsize;
+use itertools::Itertools;
 
-const ADJACENT: [(i32, i32); 4] = [(-1, 0), (1, 0), (0, -1), (0, 1)];
+const ADJACENT: [(isize, isize); 4] = [(-1, 0), (1, 0), (0, -1), (0, 1)];
 
 pub fn part_one(input: &str) -> Solution {
-    let start = get_first_position_of(input, 'S');
-    let end = get_first_position_of(input, 'E');
+    let start = get_first_position_of(input, b'E');
     let grid = parse(input);
-    let steps = bfs(&grid, start, end).unwrap();
+    let steps = bfs(&grid, start, b'S').unwrap();
 
     Solution::USize(steps)
 }
 
 pub fn part_two(input: &str) -> Solution {
-    let end = get_first_position_of(input, 'E');
+    let start = get_first_position_of(input, b'E');
     let grid = parse(input);
+    let steps = bfs(&grid, start, b'a').unwrap();
 
-    let mut shortest_path = usize::MAX;
-    for (y, l) in grid.iter().enumerate() {
-        for (x, _) in l.iter().enumerate().filter(|(_, c)| **c == b'a') {
-            if let Some(steps) = bfs(&grid, (y as i32, x as i32), end) {
-                if steps < shortest_path {
-                    shortest_path = steps;
-                }
-            }
-        }
-    }
-
-    Solution::USize(shortest_path)
+    Solution::USize(steps)
 }
 
-fn bfs(grid: &Vec<Vec<u8>>, source: (i32, i32), target: (i32, i32)) -> Option<usize> {
+fn bfs(grid: &Vec<Vec<u8>>, source: (usize, usize), target: u8) -> Option<usize> {
     let cols = grid.len();
     let rows = grid[0].len();
 
-    let mut visited = vec![vec![None::<(i32, i32)>; rows]; cols];
-    let mut queue: VecDeque<(i32, i32)> = VecDeque::new();
+    let mut visited = vec![vec![None::<(usize, usize)>; rows]; cols];
+    let mut queue: VecDeque<(usize, usize)> = VecDeque::new();
 
     queue.push_front((source.0, source.1));
     visited[source.0 as usize][source.1 as usize] = Some(source);
 
     while let Some((y, x)) = queue.pop_front() {
-        let curr_height = grid[y as usize][x as usize];
+        let curr_height = grid[y][x];
 
-        if (y, x) == target {
+        if curr_height == target {
             let mut steps = 0;
-
             let mut prev_y = y;
             let mut prev_x = x;
+
             while prev_y != source.0 || prev_x != source.1 {
-                let (py, px) = visited[prev_y as usize][prev_x as usize].unwrap();
+                let (py, px) = visited[prev_y][prev_x].unwrap();
 
                 steps += 1;
                 prev_y = py;
@@ -60,14 +51,16 @@ fn bfs(grid: &Vec<Vec<u8>>, source: (i32, i32), target: (i32, i32)) -> Option<us
         }
 
         for (ay, ax) in &ADJACENT {
-            let adj_y = (y + ay) as usize;
-            let adj_x = (x + ax) as usize;
+            let signed_adj_y = y as isize + ay;
+            let adj_y = signed_adj_y as usize;
+            let signed_adj_x = x as isize + ax;
+            let adj_x = signed_adj_x as usize;
 
-            if x + ax < 0 || y + ay < 0 || adj_y >= cols || adj_x >= rows {
+            if signed_adj_x < 0 || signed_adj_y < 0 || adj_y >= cols || adj_x >= rows {
                 continue;
             }
 
-            if grid[adj_y][adj_x] - 1 > curr_height {
+            if get_char_height(grid[adj_y][adj_x]) + 1 < get_char_height(curr_height) {
                 continue;
             }
 
@@ -76,43 +69,32 @@ fn bfs(grid: &Vec<Vec<u8>>, source: (i32, i32), target: (i32, i32)) -> Option<us
             }
 
             visited[adj_y][adj_x] = Some((y, x));
-            queue.push_back((y + ay, x + ax));
+            queue.push_back((adj_y, adj_x));
         }
     }
 
     None
 }
 
-fn parse(input: &str) -> Vec<Vec<u8>> {
-    let mut grid: Vec<Vec<u8>> = Vec::new();
-
-    for l in input.lines() {
-        let mut points: Vec<u8> = Vec::new();
-        for c in l.as_bytes().iter() {
-            let mut c = *c;
-
-            if c == b'S' {
-                c = b'a';
-            } else if c == b'E' {
-                c = b'z';
-            }
-
-            points.push(c)
-        }
-
-        grid.push(points);
+fn get_char_height(char: u8) -> u8 {
+    match char {
+        b'S' => b'a',
+        b'E' => b'z',
+        _ => char
     }
-
-    grid
 }
 
-fn get_first_position_of(grid: &str, of: char) -> (i32, i32) {
-    for (y, i) in grid.lines().enumerate() {
-        if i.contains(of) {
-            let x = i.chars().position(|c| c == of).unwrap();
-            return (y as i32, x as i32);
-        }
-    }
+fn parse(input: &str) -> Vec<Vec<u8>> {
+    input
+        .lines()
+        .map(|l| l.as_bytes().to_vec())
+        .collect_vec()
+}
 
-    unreachable!();
+fn get_first_position_of(grid: &str, of: u8) -> (usize, usize) {
+    grid
+        .lines()
+        .enumerate()
+        .find_map(|(y, l)| l.as_bytes().iter().position(|c| *c == of).map(|x| (y, x)))
+        .unwrap()
 }
