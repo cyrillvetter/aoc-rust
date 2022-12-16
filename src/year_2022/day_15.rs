@@ -1,4 +1,3 @@
-use std::collections::HashSet;
 use crate::solution::Solution;
 use itertools::Itertools;
 use regex::Regex;
@@ -6,24 +5,39 @@ use regex::Regex;
 pub fn part_one(input: &str) -> Solution {
     const ROW: i32 = 2000000;
     let pairs = parse(input);
-    let mut no_beacon_pos: HashSet<i32> = HashSet::new();
+    let mut ranges: Vec<(i32, i32)> = Vec::new();
 
     for p in pairs {
         let max_dist = manhattan_dist(&p.sensor, &p.beacon) as i32;
         let row_dist = p.sensor.y.abs_diff(ROW) as i32;
         let diff = max_dist - row_dist;
         if diff > 0 {
-            for row_x in p.sensor.x - diff..=p.sensor.x + diff {
-                no_beacon_pos.insert(row_x);
-            }
-
-            if p.beacon.y == ROW {
-                no_beacon_pos.remove(&p.beacon.x);
-            }
+            ranges.push((p.sensor.x - diff, p.sensor.x + diff));
         }
     }
 
-    Solution::USize(no_beacon_pos.len())
+    ranges.sort_unstable_by(|a, b| a.0.cmp(&b.0));
+
+    let mut no_beacons_pos: u32 = 0;
+    let mut end_prev = i32::MIN;
+
+    for r in ranges.iter() {
+        let mut start = r.0;
+        let end = r.1;
+
+        if end <= end_prev {
+            continue;
+        }
+
+        if start <= end_prev {
+            start = end_prev;
+        }
+
+        no_beacons_pos += end.abs_diff(start);
+        end_prev = end;
+    }
+
+    Solution::U32(no_beacons_pos)
 }
 
 pub fn part_two(input: &str) -> Solution {
