@@ -19,6 +19,7 @@ Implemented in Rust
 - Day [13](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_13.rs): Distress Signal
 - Day [14](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_14.rs): Regolith Reservoir
 - Day [15](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_15.rs): Beacon Exclusion Zone
+- Day [18](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_18.rs): Boiling Boulders
 
 ## [2016](https://adventofcode.com/2016)
 
