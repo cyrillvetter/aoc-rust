@@ -1,6 +1,7 @@
 use crate::solution::Solution;
 use itertools::Itertools;
 use regex::Regex;
+use std::cmp::{max, min};
 
 pub fn part_one(input: &str) -> Solution {
     const ROW: i32 = 2000000;
@@ -41,12 +42,45 @@ pub fn part_one(input: &str) -> Solution {
 }
 
 pub fn part_two(input: &str) -> Solution {
-    const LOWER_LIMIT: u32 = 0;
-    const UPPER_LIMIT: u32 = 20;
+    const LOWER_LIMIT: i32 = 0;
+    const UPPER_LIMIT: i32 = 4_000_000;
+    const FREQUENCY_TUNER: u64 = 4_000_000;
 
     let pairs = parse(input);
 
-    Solution::Empty
+    for row in (0..=UPPER_LIMIT).rev() {
+        let mut ranges: Vec<(i32, i32)> = Vec::new();
+
+        for p in &pairs {
+            let max_dist = manhattan_dist(&p.sensor, &p.beacon) as i32;
+            let row_dist = p.sensor.y.abs_diff(row) as i32;
+            let diff = max_dist - row_dist;
+            if diff > 0 {
+                let mut start = max(p.sensor.x - diff, LOWER_LIMIT);
+                let mut end = min(p.sensor.x + diff, UPPER_LIMIT);
+
+                ranges.push((start, end));
+            }
+        }
+
+        ranges.sort_unstable_by(|a, b| a.0.cmp(&b.0));
+
+        let mut end_prev = LOWER_LIMIT;
+
+        for r in ranges.iter() {
+            let mut start = r.0;
+            let end = r.1;
+
+            if start > end_prev + 1 {
+                let tuning_frequency = (end_prev + 1) as u64 * FREQUENCY_TUNER + row as u64;
+                return Solution::U64(tuning_frequency);
+            }
+
+            end_prev = max(end_prev, end);
+        }
+    }
+
+    unreachable!()
 }
 
 struct Pair {
