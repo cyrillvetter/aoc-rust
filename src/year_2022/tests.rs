@@ -118,5 +118,5 @@ fn day_15() {
 fn day_18() {
     let input = read_string(2022, 18);
     assert_eq!(day_18::part_one(&input), Solution::USize(3662));
-    assert_eq!(day_18::part_two(&input), Solution::Empty);
+    assert_eq!(day_18::part_two(&input), Solution::USize(2060));
 }

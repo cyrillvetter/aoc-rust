@@ -28,7 +28,7 @@ fn bfs(grid: &Vec<Vec<u8>>, source: (usize, usize), target: u8) -> Option<usize>
     let mut visited = vec![vec![None::<(usize, usize)>; rows]; cols];
     let mut queue: VecDeque<(usize, usize)> = VecDeque::new();
 
-    queue.push_front((source.0, source.1));
+    queue.push_back((source.0, source.1));
     visited[source.0 as usize][source.1 as usize] = Some(source);
 
     while let Some((y, x)) = queue.pop_front() {
