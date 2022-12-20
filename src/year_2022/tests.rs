@@ -120,3 +120,10 @@ fn day_18() {
     assert_eq!(day_18::part_one(&input), Solution::USize(3662));
     assert_eq!(day_18::part_two(&input), Solution::USize(2060));
 }
+
+#[test]
+fn day_20() {
+    let input = read_string(2022, 20);
+    assert_eq!(day_20::part_one(&input), Solution::I64(11073));
+    assert_eq!(day_20::part_two(&input), Solution::I64(11102539613040));
+}
