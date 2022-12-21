@@ -28,6 +28,7 @@ pub fn solve_day(day: u8) {
         15 => solve_parts(YEAR, day, day_15::part_one, day_15::part_two),
         18 => solve_parts(YEAR, day, day_18::part_one, day_18::part_two),
         20 => solve_parts(YEAR, day, day_20::part_one, day_20::part_two),
+        21 => solve_parts(YEAR, day, day_21::part_one, day_21::part_two),
         _ => (),
     };
 }
@@ -52,3 +53,4 @@ mod day_14;
 mod day_15;
 mod day_18;
 mod day_20;
+mod day_21;

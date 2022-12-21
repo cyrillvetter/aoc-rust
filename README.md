@@ -21,6 +21,7 @@ Implemented in Rust
 - Day [15](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_15.rs): Beacon Exclusion Zone
 - Day [18](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_18.rs): Boiling Boulders
 - Day [20](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_20.rs): Grove Positioning System
+- Day [21](https://github.com/cyrillvetter/aoc-rust/blob/main/src/year_2022/day_21.rs): Monkey Math
 
 ## [2016](https://adventofcode.com/2016)
 
